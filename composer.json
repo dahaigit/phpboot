@@ -1,0 +1,13 @@
+{
+    "require": {
+        "caoym/phpboot": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        },
+        "files": [
+
+        ]
+    }
+}
