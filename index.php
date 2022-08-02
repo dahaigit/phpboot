@@ -2,7 +2,12 @@
 
 require __DIR__.'/vendor/autoload.php';
 
-$app = \PhpBoot\Application::createByDefault(__DIR__.'/config/config.php');
-$app->loadRoutesFromPath(__DIR__.'/App/Controllers', 'App\\Controllers'); //
+try {
+    $app = \PhpBoot\Application::createByDefault(__DIR__.'/config/config.php');
+    $app->loadRoutesFromPath(__DIR__.'/App/Controllers', 'App\\Controllers'); //
 
-$app->dispatch();
+    $app->dispatch();
+} catch (Exception $exception) {
+    var_dump($exception->getMessage());
+}
+

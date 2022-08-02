@@ -66,4 +66,52 @@ class Books
     }
 }
 ```
+## 链接数据库
+配置文件config/config.php
+```$xslt
+<?php
+return [
+    'DB.connection'=> 'mysql:dbname=dev_product;host=xxxx',
+    'DB.username'=> 'xxx',
+    'DB.password'=> 'xxxx',
+    'DB.options' => [],
+];
+```
+控制器使用依赖注入使用数据库
+```$xslt
+<?php
+
+namespace App\Controllers;
+
+use PhpBoot\DB\DB;
+use PhpBoot\DI\Traits\EnableDIAnnotations;
+
+/**
+ * 尝试使用phpboot
+ *
+ * @path /dahai
+ */
+class Dahai
+{
+    use EnableDIAnnotations; //启用通过@inject标记注入依赖
+
+    /**
+     * @inject
+     * @var DB
+     */
+    private $db;
+
+    /**
+     * @route GET /
+     */
+    public function info($page, $pageSize)
+    {
+        $products = $this->db->select("*")
+            ->from("product")
+            ->getFirst();
+        var_dump($products);
+        return ["page" => $page, "pageSize" => $pageSize];
+    }
+}
+```
 
